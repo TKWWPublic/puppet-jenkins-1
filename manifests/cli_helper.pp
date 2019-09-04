@@ -26,7 +26,6 @@ class jenkins::cli_helper {
 
   $helper_cmd = join(
     delete_undef_values([
-      'systemctl restart jenkins && ',
       '/bin/cat',
       $helper_groovy,
       '|',
