@@ -192,7 +192,6 @@ describe 'jenkins_credentials' do
           pp = base_manifest + <<-EOS
             package { 'git': }
             jenkins::plugin { [
-              'matrix-project',
               'junit',
               'script-security',
               'workflow-api',
@@ -200,7 +199,6 @@ describe 'jenkins_credentials' do
               'workflow-scm-step',
               'git',
               'git-client',
-              'mailer',
               'display-url-api',
               'scm-api',
               'ssh-credentials',
