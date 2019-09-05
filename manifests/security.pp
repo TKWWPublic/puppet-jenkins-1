@@ -26,6 +26,11 @@ class jenkins::security (
       -> Anchor['jenkins::end']
 
   # XXX not idempotent
+  exec { 'Restart Jenkins - error 500':
+    command     => "/bin/systemctl restart jenkins && sleep 10",
+    path        => '/usr/bin:/usr/sbin:/bin',
+    provider    => shell,
+  }->
   jenkins::cli::exec { "jenkins-security-${security_model}":
     command => [
       'set_security',
