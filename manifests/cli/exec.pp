@@ -33,7 +33,7 @@ define jenkins::cli::exec(
     $environment_run = undef
   }
 
-  exec { "Wait for jenkins start":
+  exec { "Wait for jenkins start ${title}":
     command  => "sleep 120",
     path     => '/usr/bin:/usr/sbin:/bin',
     provider => shell,
