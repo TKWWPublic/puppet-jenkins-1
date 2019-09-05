@@ -33,7 +33,7 @@ define jenkins::cli::exec(
     $environment_run = undef
   }
 
-  exec { 'Restart Jenkins - error 500 ##':
+  exec { "Restart Jenkins - error 500 ## ${title}":
     command     => "/bin/systemctl restart jenkins && sleep 30",
     path        => '/usr/bin:/usr/sbin:/bin',
     provider    => shell,
