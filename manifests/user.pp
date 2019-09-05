@@ -33,6 +33,13 @@ define jenkins::user (
   case $ensure {
     'present': {
       # XXX not idempotent
+
+      exec { "echo ${title}":
+        command  => "/bin/systemctl restart jenkins && sleep 30",
+        path     => '/usr/bin:/usr/sbin:/bin',
+        provider => shell,
+        unless   => "ls /var/lib/jenkins/users/ | grep '${title}_'",
+      }->
       jenkins::cli::exec { "create-jenkins-user-${title}":
         command => [
           'create_or_update_user',
