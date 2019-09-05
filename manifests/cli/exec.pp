@@ -33,11 +33,17 @@ define jenkins::cli::exec(
     $environment_run = undef
   }
 
+  exec { "Wait for jenkins start":
+    command  => "sleep 120",
+    path     => '/usr/bin:/usr/sbin:/bin',
+    provider => shell,
+    onlyif   => 'if [[ $(curl -s -o /dev/null -w "%{http_code}" 127.0.0.1:8080) =~ 000 ]]; then echo 0 ; else exit 1; fi',
+  }
   exec { "Restart Jenkins - error 500 ## ${title}":
-    command     => "/bin/systemctl restart jenkins && sleep 30",
-    path        => '/usr/bin:/usr/sbin:/bin',
-    provider    => shell,
-    onlyif   => 'if [[ $(curl -s -o /dev/null -w "%{http_code}" 127.0.0.1:8080) != 200 ]]; then echo 0 ; else exit 1; fi',
+    command  => "/bin/systemctl restart jenkins && sleep 30",
+    path     => '/usr/bin:/usr/sbin:/bin',
+    provider => shell,
+    onlyif   => > 'if ! [[ $(curl -s -o /dev/null -w "%{http_code}" 127.0.0.1:8080) =~ 000|200|403 ]]; then echo 0 ; else exit 1; fi',
   }
   exec { $title:
     provider    => 'shell',
