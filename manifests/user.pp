@@ -38,7 +38,7 @@ define jenkins::user (
         command  => "/bin/systemctl restart jenkins && sleep 30 && touch /tmp/jenkins.restarted",
         path     => '/usr/bin:/usr/sbin:/bin',
         provider => shell,
-        unless   => ["ls /var/lib/jenkins/users/ | grep -e '${title}_' -e 'automatedscrip_'"."find /tmp/jenkins.restarted -mmin 15"],
+        unless   => ["ls /var/lib/jenkins/users/ | grep -e '${title}_' -e 'automatedscrip_'", "find /tmp/jenkins.restarted -mmin 15"],
       }->
       jenkins::cli::exec { "create-jenkins-user-${title}":
         command => [
