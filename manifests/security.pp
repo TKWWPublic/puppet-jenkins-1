@@ -22,15 +22,15 @@ class jenkins::security (
 ){
   include jenkins::cli_helper
 
-  Class['jenkins::cli_helper']
-    -> Class['jenkins::security']
-      -> Anchor['jenkins::end']
-
   if $search != '' {
       $COND = "\$HELPER_CMD get_authorization_strategyname | grep -q -e '^${security_model}\$' -e '${search}'"
   } else {
       $COND = "\$HELPER_CMD get_authorization_strategyname | grep -q -e '^${security_model}\$'"
   }
+
+  Class['jenkins::cli_helper']
+    -> Class['jenkins::security']
+      -> Anchor['jenkins::end']
     # XXX not idempotent
     jenkins::cli::exec { "jenkins-security-${security_model}":
       command => [
