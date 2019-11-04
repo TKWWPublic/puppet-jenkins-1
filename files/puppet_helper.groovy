@@ -886,6 +886,8 @@ class Actions {
       authorizationStrategyName = 'full_control'
     } else if ((String)strategy.getClass().getName() == 'hudson.security.AuthorizationStrategy$Unsecured' ) {
       authorizationStrategyName = 'unsecured'
+    } else if ((String)strategy.getClass().getName() == 'com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy' ) {
+      authorizationStrategyName = 'RoleBasedAuthorizationStrategy'
     }
     out.println(authorizationStrategyName)
   }
