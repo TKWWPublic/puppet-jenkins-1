@@ -37,6 +37,6 @@ class jenkins::security (
         'set_security',
         $security_model,
       ],
-      unless  => ${condition},
+      unless  => $condition,
     }
 }
