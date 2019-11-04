@@ -23,9 +23,9 @@ class jenkins::security (
   include jenkins::cli_helper
 
   if $search != '' {
-      $COND = "\$HELPER_CMD get_authorization_strategyname | grep -q -e '^${security_model}\$' -e '${search}'"
+      $condition = "\$HELPER_CMD get_authorization_strategyname | grep -q -e '^${security_model}\$' -e '${search}'"
   } else {
-      $COND = "\$HELPER_CMD get_authorization_strategyname | grep -q -e '^${security_model}\$'"
+      $condition = "\$HELPER_CMD get_authorization_strategyname | grep -q -e '^${security_model}\$'"
   }
 
   Class['jenkins::cli_helper']
@@ -37,6 +37,6 @@ class jenkins::security (
         'set_security',
         $security_model,
       ],
-      unless  => "${COND}",
+      unless  => ${condition},
     }
 }
