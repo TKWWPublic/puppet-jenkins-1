@@ -35,18 +35,18 @@ class jenkins::cli {
     command => '/bin/true',
     creates => $jar,
   }
-  ~> exec { 'jenkins-cli' :
-    command     => "curl -s localhost:8080/jnlpJars/jenkins-cli.jar -o /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar",
-    path        => ['/bin', '/usr/bin'],
-    cwd         => '/tmp',
-    refreshonly => true,
-  }
   #  ~> exec { 'jenkins-cli' :
-  #    command     => "${extract_jar} && ${move_jar} && ${remove_dir}",
+  #    command     => "curl -s localhost:8080/jnlpJars/jenkins-cli.jar -o /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar",
   #    path        => ['/bin', '/usr/bin'],
-  #    cwd         => '/tmp',
-  #    refreshonly => true,
-  #  }
+  # cwd         => '/tmp',
+  # refreshonly => true,
+  #}
+    ~> exec { 'jenkins-cli' :
+      command     => "${extract_jar} && ${move_jar} && ${remove_dir}",
+      path        => ['/bin', '/usr/bin'],
+      cwd         => '/tmp',
+      refreshonly => true,
+    }
   # Extract latest CLI in case package is updated / downgraded
   Package[$::jenkins::package_name] ~> Exec['jenkins-cli']
 
