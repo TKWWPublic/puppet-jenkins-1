@@ -324,6 +324,7 @@ class jenkins(
   Stdlib::Absolutepath $libdir                    = $jenkins::params::libdir,
   Stdlib::Absolutepath $sysconfdir                = $jenkins::params::sysconfdir,
   Boolean $manage_datadirs                        = $jenkins::params::manage_datadirs,
+  Boolean $create_localstatedir                   = $jenkins::params::create_localstatedir,
   Stdlib::Absolutepath $localstatedir             = $::jenkins::params::localstatedir,
   Optional[Integer] $executors                    = undef,
   Optional[Integer] $slaveagentport               = undef,

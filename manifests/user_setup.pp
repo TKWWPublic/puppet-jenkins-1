@@ -52,7 +52,9 @@ class jenkins::user_setup {
   }
 
   if $::jenkins::manage_datadirs {
-    ensure_resource('file', $::jenkins::localstatedir, $dir_params)
+    if $::jenkins::create_localstatedir {
+      ensure_resource('file', $::jenkins::localstatedir, $dir_params)
+    }
     ensure_resource('file', $::jenkins::plugin_dir, $plugin_dir_params)
     ensure_resource('file', $::jenkins::job_dir, $dir_params)
   }
