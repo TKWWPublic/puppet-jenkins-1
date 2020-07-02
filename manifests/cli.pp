@@ -39,6 +39,7 @@ class jenkins::cli {
     command     => "curl -s 127.0.0.1:8080/jnlpJars/jenkins-cli.jar -o /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar",
     path        => ['/bin', '/usr/bin'],
     cwd         => '/tmp',
+    creates     => '/var/cache/jenkins/war/WEB-INF/jenkins-cli.jar',
     refreshonly => true,
   }
   #  ~> exec { 'jenkins-cli' :
