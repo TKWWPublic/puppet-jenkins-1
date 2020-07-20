@@ -328,6 +328,12 @@ class Actions {
       user.delete()
     }
   }
+  void delete_user(String user_name, String email, String contra, String dunno) {
+    def user = hudson.model.User.get(user_name, false)
+    if (user != null) {
+      user.delete()
+    }
+  }
 
   /////////////////////////
   // current user
